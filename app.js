@@ -1,9 +1,11 @@
 const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
+const multer = require("multer");
 
 const app = express();
+const upload = multer(); // para leer multipart/form-data (form-data de Postman)
 
-// Para poder leer datos enviados como form-data / x-www-form-urlencoded (como request.form en Flask)
+// Para poder leer x-www-form-urlencoded y JSON también, por si acaso
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -29,7 +31,7 @@ app
       db.close();
     });
   })
-  .post((req, res) => {
+  .post(upload.none(), (req, res) => {
     const { firstname, lastname, gender, age } = req.body;
     const db = dbConnection();
     const sql = `INSERT INTO students (firstname, lastname, gender, age) VALUES (?, ?, ?, ?)`;
@@ -59,7 +61,7 @@ app
       },
     );
   })
-  .put((req, res) => {
+  .put(upload.none(), (req, res) => {
     const { firstname, lastname, gender, age } = req.body;
     const id = req.params.id;
     const db = dbConnection();
