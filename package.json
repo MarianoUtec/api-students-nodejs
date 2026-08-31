@@ -1,0 +1,13 @@
+{
+  "name": "api-students-node",
+  "version": "1.0.0",
+  "description": "API REST de estudiantes con Node.js, Express y SQLite",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "sqlite3": "^5.1.7"
+  }
+}
